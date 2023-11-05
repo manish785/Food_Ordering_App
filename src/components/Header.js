@@ -1,23 +1,72 @@
-import {LOGO_URL} from '../utils/constants';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
+
+// Title component for display logo
+// const Title = () => (
+//   <a href="/">
+//     <img
+//       className="logo"
+//       src={FoodFireLogo}
+//       alt="Food Fire Logo"
+//       title="Food Fire"
+//     />
+//   </a>
+// );
+
+// Header component for header section: Logo, Nav Items
 const Header = () => {
-    return (
-      <div className='header'>
-         {/* <Title /> */}
-         <div className='logo-container'>
-             <img className='logo' src={LOGO_URL}/>
-             </div>
-             <div className='nav-items'>
-                 <ul>
-                     <li>Home</li>
-                     <li>About</li>
-                     <li>Card</li>
-                     <li><i className="fa-solid fa-cart-shopping"></i></li>
-                 </ul>
-             </div>
-         </div>
-    )
- }
- 
+  // use useState for user logged in or logged out
+  const [btnNameReact, setBtnNameReact] = useState(true);
 
- export default Header;
+  return (
+    <div className="header">
+      <div className="logo-container">
+        {/* <img src={LOGO_URL} alt="App Logo" className="logo" /> */}
+        <Link to="/">
+          <img
+            src="https://cdn-icons-png.flaticon.com/128/3655/3655682.png"
+            alt="Logo"
+            className="logo"
+          />
+        </Link>
+      </div>
+      <div className="nav-items">
+        <ul>
+          <li>
+            <Link to="/" className="links">
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/about" className="links">
+              About Us
+            </Link>
+          </li>
+          <li>
+            <Link to="/contact" className="links">
+              Contact Us
+            </Link>
+          </li>
+          <li>
+            <Link className="links">Cart</Link>
+          </li>
+          <button
+            className="loginBtn"
+            onClick={() => {
+              //   btnName = 'Logout';
+              btnNameReact === 'Login'
+                ? setBtnNameReact('Logout')
+                : setBtnNameReact('Login');
+              console.log(btnNameReact);
+            }}
+          >
+            {btnNameReact}
+          </button>
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default Header;
