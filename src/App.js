@@ -1,46 +1,70 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React, { lazy, Suspense } from "react";
+import ReactDOM from "react-dom/client";
 
-import Header from './components/Header';
-import Body from './components/Body';
-import About from './components/About';
-import Error from './components/Error';
-import Contact from './components/Contact';
-import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'; // for routing our page import createBrowserRouter and RouterProvider for providing router & Outlet for children component for nested routing
+import Header from "./components/Header";
+import Body from "./components/Body";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import Contact from "./components/Contact";
+import Error from "./components/Error";
+import RestaurantMenu from "./components/RestaurantMenu";
 
 
-// AppLayout component to render: Header, Outlet(it contain children component like body, About, Restaurant Menu etc) and Footer Component
+// Chunking
+// Code Spiliting
+// Dynamic Bundling
+// Lazy Loading
+// on demand loading
+
+const Grocery = lazy(() => import('./components/Grocery'));
+const About = lazy(() => import('./components/About'));
+
+
 const AppLayout = () => {
-  return (
-    <React.Fragment>
-      <Header />
-      <Outlet />
-    </React.Fragment>
-  );
-};
+    return(
+        <div className="app">
+            <React.Fragment>
+                <Header />
+                <Outlet />
+            </React.Fragment>
+        </div>
+    )
+}
 
-// call createBrowserRouter for routing different pages
+
 const appRouter = createBrowserRouter([
-  {
-    path: '/', // show path for routing
-    element: <AppLayout />, // show component for particular path
-    errorElement: <Error />, // show error component for path is different
-    children: [
-      // show children component for routing
-      {
-        path: '/',
-        element: <Body />,
-      },
-      {
-        path: '/about',
-        element: <About />,
-      },
-      {
-        path: '/contact',
-        element: <Contact />,
-      },
-    ],
-  },
-]);
+    {
+       path: '/',
+       element: <AppLayout/>,
+       children:[
+            {
+                path: '/',
+                element: <Body/>
+            },
+            {
+                path: '/about',
+                element:  <Suspense fallback={<h1>Loading......</h1>}>
+                    <About/>
+                </Suspense>
+            },
+            {
+                path: '/contact',
+                element: <Contact/>
+            },
+            {
+                path: '/grocery',
+                element: <Suspense fallback={<h1>Loading......</h1>}>
+                    <Grocery/>
+                </Suspense>
+            },
+            {
+                path: '/restaurants/:resId',
+                element: <RestaurantMenu/>
+            },
+       ],
+       errorElement: <Error/>
+    },
+])
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<RouterProvider router={appRouter} />); // render RouterProvider and use router as props and pass value appRouter
+root.render(<RouterProvider router={appRouter} />);

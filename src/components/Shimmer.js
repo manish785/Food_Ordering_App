@@ -4,10 +4,21 @@ import {shimmer_card_unit}  from '../utils/constants';
 export const CardShimmer = () => {
   return (
     <div className="shimmer-card">
-      <div className="shimmer-img "></div>
-      <div className="shimmer-title "></div>
-      <div className="shimmer-tags  "></div>
-      <div className="shimmer-details "></div>
+      <div className="shimmer-card stroke animate"></div>
+      <div className="shimmer-card stroke animate"></div>
+      <div className="shimmer-card stroke animate"></div>
+      <div className="shimmer-card stroke animate"></div>
+      <div className="shimmer-card stroke animate"></div>
+      <div className="shimmer-card stroke animate"></div>
+      <div className="shimmer-card stroke animate"></div>
+      <div className="shimmer-card stroke animate"></div>
+      <div className="shimmer-card stroke animate"></div>
+      <div className="shimmer-card stroke animate"></div>
+      <div className="shimmer-card stroke animate"></div>
+      <div className="shimmer-card stroke animate"></div>
+      <div className="shimmer-card stroke animate"></div>
+      <div className="shimmer-card stroke animate"></div>
+      <div className="shimmer-card stroke animate"></div>
     </div>
   );
 };

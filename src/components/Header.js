@@ -1,72 +1,51 @@
+import { LOGO_URL } from '../utils/constants';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import useOnlineStatus from '../utils/useOnlineStatus';
 
-
-// Title component for display logo
-// const Title = () => (
-//   <a href="/">
-//     <img
-//       className="logo"
-//       src={FoodFireLogo}
-//       alt="Food Fire Logo"
-//       title="Food Fire"
-//     />
-//   </a>
-// );
-
-// Header component for header section: Logo, Nav Items
 const Header = () => {
-  // use useState for user logged in or logged out
-  const [btnNameReact, setBtnNameReact] = useState(true);
+    const [btnNameReact, setBtnNameReact] = useState('login');
+    
+    const onlineStatus = useOnlineStatus();
 
-  return (
-    <div className="header">
-      <div className="logo-container">
-        {/* <img src={LOGO_URL} alt="App Logo" className="logo" /> */}
-        <Link to="/">
-          <img
-            src="https://cdn-icons-png.flaticon.com/128/3655/3655682.png"
-            alt="Logo"
-            className="logo"
-          />
-        </Link>
-      </div>
-      <div className="nav-items">
-        <ul>
-          <li>
-            <Link to="/" className="links">
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link to="/about" className="links">
-              About Us
-            </Link>
-          </li>
-          <li>
-            <Link to="/contact" className="links">
-              Contact Us
-            </Link>
-          </li>
-          <li>
-            <Link className="links">Cart</Link>
-          </li>
-          <button
-            className="loginBtn"
-            onClick={() => {
-              //   btnName = 'Logout';
-              btnNameReact === 'Login'
-                ? setBtnNameReact('Logout')
-                : setBtnNameReact('Login');
-              console.log(btnNameReact);
-            }}
-          >
-            {btnNameReact}
-          </button>
-        </ul>
-      </div>
-    </div>
-  );
-};
+    return (
+        <div className="flex justify-between bg-pink-100 shadow-lg sm:bg-yellow-50 lg:bg-green-50">
+            <div className="logo-container">
+                <img className="w-[220] h-[170]" src={ LOGO_URL } />
+            </div>
+            <div className="flex items-center">
+                <ul className='flex p-4 m-4'>
+                    <li className='px-3'>
+                       Online Status: {onlineStatus ? "✅" : "🚫"}
+                    </li>
+                    <li className='px-3'>
+                        <Link to="/">Home</Link>
+                    </li>
+                    <li className='px-3'> 
+                        <Link to="/about">About Us </Link>
+                    </li>
+                    <li className='px-3'>
+                        <Link to="/contact">Contact Us</Link>
+                    </li>
+                    <li className='px-3'>
+                        <Link to="/grocery">Grocery</Link>
+                    </li>
+                    <li className='px-3'>Cart</li>
+                    <button
+                    className='login'
+                    onClick={() =>{
+                        btnNameReact === 'Login'
+                        ? setBtnNameReact('Logout')
+                        : setBtnNameReact('Login')
+                    }}
+                    >
+                    {btnNameReact}
+                    </button>
+                </ul>
+            </div>
+        </div>
+    )
+}
+
 
 export default Header;
